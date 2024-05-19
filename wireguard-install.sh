@@ -145,7 +145,7 @@ function installQuestions() {
 	until [[ ${SERVER_MTU} =~ ^[0-9]+$ ]] && [ "${SERVER_MTU}" -ge 1200 ] && [ "${SERVER_MTU}" -le 1500 ]; do
 		read -rp "Server MTU [1200-1500]: " -e -i 1420 SERVER_MTU
 	done
-	
+
 	until [[ ${CLIENT_MTU} =~ ^[0-9]+$ ]] && [ "${CLIENT_MTU}" -ge 1200 ] && [ "${CLIENT_MTU}" -le 1500 ]; do
 		read -rp "Client MTU [1200-1500]: " -e -i 1420 CLIENT_MTU
 	done
