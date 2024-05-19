@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Secure WireGuard server installer
-# https://github.com/angristan/wireguard-install
+# https://github.com/conradgg/wireguard-install
 
 RED='\033[0;31m'
 ORANGE='\033[0;33m'
@@ -35,8 +35,8 @@ function checkOS() {
 	source /etc/os-release
 	OS="${ID}"
 	if [[ ${OS} == "debian" || ${OS} == "raspbian" ]]; then
-		if [[ ${VERSION_ID} -lt 10 ]]; then
-			echo "Your version of Debian (${VERSION_ID}) is not supported. Please use Debian 10 Buster or later"
+		if [[ ${VERSION_ID} -lt 11 ]]; then
+			echo "Your version of Debian (${VERSION_ID}) is not supported. Please use Debian 11 Bullseye or later"
 			exit 1
 		fi
 		OS=debian # overwrite if raspbian
@@ -174,18 +174,10 @@ function installWireGuard() {
 	if [[ ${OS} == 'ubuntu' ]]; then
 		apt-get update
 		apt-get install -y wireguard iptables resolvconf qrencode
-	elif [[ ${OS} == 'debian' && ${VERSION_ID} -gt 10 ]]; then
+	elif [[ ${OS} == 'debian' ]]; then
 		apt-get update
 		apt-get install -y wireguard iptables resolvconf qrencode
 		resolvconf -u
-	elif [[ ${OS} == 'debian' ]]; then
-		if ! grep -rqs "^deb .* buster-backports" /etc/apt/; then
-			echo "deb http://deb.debian.org/debian buster-backports main" >/etc/apt/sources.list.d/backports.list
-			apt-get update
-		fi
-		apt update
-		apt-get install -y iptables resolvconf qrencode
-		apt-get install -y -t buster-backports wireguard
 	elif [[ ${OS} == 'fedora' ]]; then
 		if [[ ${VERSION_ID} -lt 32 ]]; then
 			dnf install -y dnf-plugins-core
