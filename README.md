@@ -16,6 +16,7 @@ Supported distributions:
 - CentOS Stream >= 8
 - Debian >= 11
 - Fedora >= 32
+- OpenSUSE
 - Oracle Linux
 - Rocky Linux >= 8
 - Ubuntu >= 18.04
